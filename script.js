@@ -660,23 +660,55 @@ function updateDelit(i){ data.infractions[i]={category:document.getElementById('
 function saveAdminSettings(){ Object.assign(data,{siteName:aSite.value,logoText:aLogo.value,bannerUrl:aBanner.value,fondUrl:aFond.value,c1:aC1.value,c2:aC2.value}); save(); }
 
 async function accessLogin(){
-  const el = document.getElementById('accessPass');
-  const value = el ? el.value : '';
-  if(!authReady || !auth) return alert('Firebase Auth n’est pas prêt. Vérifie la configuration Firebase.');
-  try{
-    await auth.signInWithEmailAndPassword('admin@overstate.local', value);
-    await startRemoteListener();
-    render();
+  const value = document.getElementById('accessPass').value;
+
+  if(!authReady || !auth){
+    alert('Firebase Auth non prêt.');
     return;
+  }
+
+  try{
+
+    await auth.signInWithEmailAndPassword(
+      'admin@overstate.com',
+      value
+    );
+
+    admin = true;
+    authenticated = true;
+
+    localStorage.setItem('mdtAccessV2', 'admin');
+    localStorage.setItem('mdtAdminV2', '1');
+
+    await startRemoteListener();
+
+    render();
+
   }catch(eAdmin){
+
     try{
-      await auth.signInWithEmailAndPassword('user@overstate.local', value);
+
+      await auth.signInWithEmailAndPassword(
+        'user@overstate.com',
+        value
+      );
+
+      admin = false;
+      authenticated = true;
+
+      localStorage.setItem('mdtAccessV2', 'user');
+      localStorage.removeItem('mdtAdminV2');
+
       await startRemoteListener();
+
       render();
-      return;
+
     }catch(eUser){
-      console.error(eAdmin, eUser);
-      alert('Mot de passe incorrect ou comptes Firebase Auth non créés.');
+
+      console.error(eAdmin);
+      console.error(eUser);
+
+      alert('Mot de passe incorrect.');
     }
   }
 }
