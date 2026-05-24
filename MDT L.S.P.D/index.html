@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OverState MDT V2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="lockedOut">
+  <div id="loginGate" class="loginGate">
+    <div class="loginGateCard">
+      <img src="OverState.png" alt="OverState" class="loginLogo">
+      <h1>Connexion MDT OverState</h1>
+      <p>Mot de passe obligatoire pour utiliser la MDT.</p>
+      <label>Mot de passe</label>
+      <div class="password">
+        <input id="accessPass" type="password" placeholder="Mot de passe utilisateur ou admin">
+        <button onclick="togglePass('accessPass')">👁️</button>
+      </div>
+      <button class="green full" onclick="accessLogin()">Connexion</button>
+      <p class="note">Les utilisateurs peuvent voir et utiliser les casiers / bracelets. Seul l’admin peut modifier ou supprimer.</p>
+    </div>
+  </div>
+  <aside id="side">
+    <div class="brand">
+      <div id="logo">OS</div>
+      <div>
+        <h2 id="siteName">OverState</h2>
+        <p>MDT Police RP partagé</p>
+      </div>
+    </div>
+
+    <nav id="nav"></nav>
+
+    <div class="statusBox">
+      <div class="shield">🛡️</div>
+      <div>
+        <b id="adminState">Visiteur</b>
+        <p id="adminText">Connexion obligatoire</p>
+      </div>
+      <button id="logoutBtn" class="danger full hidden" onclick="logout()">Déconnexion</button>
+    </div>
+
+    <div class="statusBox smallBox">
+      <b>🟢 Sauvegarde locale</b>
+      <p>Connexion obligatoire. Admin seul pour modifier/supprimer.</p>
+    </div>
+
+    <footer>© 2026 OverState MDT<br><span>Version améliorée partageable</span></footer>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <button class="iconBtn" onclick="toggleMenu()">☰</button>
+      <div class="search">
+        <input id="searchBox" placeholder="Rechercher un casier, un nom, une infraction..." oninput="globalSearch()">
+        <button onclick="globalSearch()">🔎</button>
+      </div>
+      <button class="iconBtn" onclick="toggleTheme()">🌙</button>
+      <button class="primary" onclick="quickSave()">💾 Sauvegarder</button>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h1>MDT Police RP <span>Version 2.0</span></h1>
+        <p>Casier, amendes, temps de détention, saisies, dispatch, bracelets et gestion admin.</p>
+        <div class="badges">
+          <span>✅ Modifiable</span><span>🔐 Admin</span><span>🌐 Partageable</span><span>💾 Export</span>
+        </div>
+      </div>
+      <div class="heroLogo">⚖️</div>
+    </section>
+
+    <section id="stats" class="stats"></section>
+    <section id="page"></section>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modalCard">
+      <button class="close" onclick="closeModal()">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
