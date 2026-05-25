@@ -717,7 +717,7 @@ async function login(){
   const value = document.getElementById('pass')?.value || '';
   if(!authReady || !auth) return alert('Firebase Auth n’est pas prêt.');
   try{
-    await auth.signInWithEmailAndPassword('admin@overstate.com', value);
+    await auth.signInWithEmailAndPassword('ladoucedx@gmail.com', value);
     await startRemoteListener();
     render();
   }catch(e){
